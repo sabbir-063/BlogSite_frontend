@@ -24,7 +24,7 @@ function Register() {
         console.log(data);
         // Replace with your API endpoint
         try {
-            const url = 'http://localhost:5000/api/users'; // Adjust the URL as needed
+            const url = 'https://blogsite-backend-4fmp.onrender.com/api/users'; // Adjust the URL as needed
             const { data: res } = await axios.post(url, data);
             navigate("/login");
             console.log(res.message);

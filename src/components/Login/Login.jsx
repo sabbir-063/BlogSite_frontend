@@ -19,7 +19,7 @@ function Login() {
         setError('');
         // Replace with your API endpoint
         try {
-            const url = 'http://localhost:5000/api/auth';
+            const url = 'https://blogsite-backend-4fmp.onrender.com/api/auth';
             const {data:res} = await axios.post(url, data);
             localStorage.setItem('token', res.data);
             window.location = "/";
