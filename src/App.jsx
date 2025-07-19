@@ -11,7 +11,6 @@ import ProtectedRoute from "./utils/protectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) return;

@@ -1,32 +1,71 @@
+/* Navbar Container */
 .navbar {
-  background-color: #343a40;
+  background-color: #1f2937; /* dark navy */
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
+/* Logo */
 .navbar-logo a {
-  color: #fff;
-  font-size: 1.5rem;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: bold;
   text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Links Container */
 .navbar-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
+  align-items: center;
 }
 
+/* List items */
 .navbar-links li {
-  color: #fff;
+  font-size: 1rem;
 }
 
-.navbar-links a, .navbar-links button {
-  color: #fff;
+/* Default link & button style */
+.navbar-links a,
+.navbar-links button {
+  color: #ffffff;
   text-decoration: none;
-  background: none;
-  border: none;
+  background-color: transparent;
+  border: 1px solid #ffffff55;
   font: inherit;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Hover effect */
+.navbar-links a:hover,
+.navbar-links button:hover {
+  background-color: #ffffff22;
+  color: #ffffff;
+  border-color: #ffffffaa;
+}
+
+/* Create Post Button */
+.create-btn {
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #4E47FF;
+    color: white;
+    border-radius: 12px;
+    padding: 12px 36px;
+    border: none;
+}
+
+.create-btn:hover {
+  background-color: #2563eb;
 }
