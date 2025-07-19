@@ -1,0 +1,36 @@
+.create-post-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.create-post-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  background: #f2f2f2;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.create-post-form input,
+.create-post-form textarea {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.create-post-form button {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.create-post-form button:hover {
+  background-color: #555;
+}

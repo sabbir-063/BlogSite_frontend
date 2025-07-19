@@ -1,96 +1,78 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import './Register.css';
+import React, { useState } from "react";
+import axios from "../../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
-function Register() {
-    const [data, setData] = useState({
-        firstname: '',
-        lastname: '',
-        username: '',
-        email: '',
-        password: ''
-    });
-    const [error, setError] = useState('');
+const Register = () => {
+    const [form, setForm] = useState({ username: "", email: "", password: "" });
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
-    const handleChange = ({ currentTarget: input }) => {
-        setData({ ...data, [input.name]: input.value });
+    const handleChange = e => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: "" }); // Clear error on change
     };
 
-    const handleSubmit = async (e) => {
+    const validate = () => {
+        let temp = {};
+        if (!form.username.trim()) temp.username = "Username is required";
+        if (!form.email.trim()) temp.email = "Email is required";
+        if (!form.password.trim()) temp.password = "Password is required";
+        else if (form.password.length < 6) temp.password = "Password must be at least 6 characters";
+
+        setErrors(temp);
+        return Object.keys(temp).length === 0;
+    };
+
+    const handleSubmit = async e => {
         e.preventDefault();
-        setError('');
-        console.log(data);
-        // Replace with your API endpoint
+        if (!validate()) return;
+
         try {
-            const url = 'https://blogsite-backend-4fmp.onrender.com/api/users'; // Adjust the URL as needed
-            const { data: res } = await axios.post(url, data);
+            await axios.post("/auth/register", form);
+            alert("Registered! Please login.");
             navigate("/login");
-            console.log(res.message);
-        } catch {
-            if (
-                error.response &&
-                error.response.status >= 400 &&
-                error.response.status <= 500
-            ) {
-                setError(error.response.data.message);
-            }    
+        } catch (err) {
+            const message = err.response?.data || "Registration failed";
+            alert(typeof message === "string" ? message : JSON.stringify(message));
         }
     };
 
     return (
-        <div className="register-container">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit} className="register-form">
+        <div className="auth-container">
+            <form className="auth-form" onSubmit={handleSubmit}>
+                <h2>Register</h2>
+
                 <input
-                    type="text"
-                    name='firstname'
-                    placeholder="First Name"
-                    value={data.firstname}
+                    name="username"
+                    placeholder="Username"
+                    value={form.username}
                     onChange={handleChange}
-                    required
                 />
+                {errors.username && <span className="error">{errors.username}</span>}
+
                 <input
-                    type="text"
-                    name='lastname'
-                    placeholder="Last Name"
-                    value={data.lastname}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="text"
-                    name='username'
-                    placeholder="User Name"
-                    value={data.username}
-                    onChange={handleChange}
-                    required
-                />
-                <input
+                    name="email"
                     type="email"
                     placeholder="Email"
-                    name='email'
-                    value={data.email}
+                    value={form.email}
                     onChange={handleChange}
-                    required
                 />
+                {errors.email && <span className="error">{errors.email}</span>}
+
                 <input
+                    name="password"
                     type="password"
                     placeholder="Password"
-                    name='password'
-                    value={data.password}
+                    value={form.password}
                     onChange={handleChange}
-                    required
                 />
-                {error && <div className="error">{error}</div>}
+                {errors.password && <span className="error">{errors.password}</span>}
+
                 <button type="submit">Register</button>
             </form>
-            <p>
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
         </div>
     );
-}
+};
 
 export default Register;

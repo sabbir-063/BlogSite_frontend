@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import Landing from './components/Home/Home'
-import Login from './components/Login/Login'
-import Register from './components/Register/Register'
-import './App.css'
-import { decodeToken } from './utils/decode_token'
-import { useEffect, useState } from 'react'
-import ProtectedRoute from './utils/protectedRoute'
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import Home from "./components/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import CreatePost from "./components/CreatePost/CreatePost";
+import { decodeToken } from './utils/decode_token'
+import ProtectedRoute from "./utils/protectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,37 +19,35 @@ function App() {
     const decoded = decodeToken(token);
     if (decoded) {
       setUser(decoded);
-      console.log("User decoded from token: ", user._id, user.firstname, user.lastname, user.username, user.email);
+      // console.log("User decoded from token: ", user._id, user.username, user.email);
     } else {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null);
+      // console.log("Invalid token, user set to null");
     }
   }, []);
 
 
   return (
     <Router>
+      <Navbar user={user} setUser={setUser} />
       <Routes>
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
+        <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route
-          path="/"
+          path="/create-post"
           element={
-            <ProtectedRoute user={user}>
-              <Landing setUser={setUser}/>
+            <ProtectedRoute>
+              <CreatePost />
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/" replace /> : <Login />}
-        />
-        <Route
-          path="/register"
-          element={user ? <Navigate to="/" replace /> : <Register />}
-        />
-        {/* Catch-all redirect to login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

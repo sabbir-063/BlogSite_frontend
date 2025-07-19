@@ -1,29 +1,44 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import './Home.css'
+import React, { useEffect, useState } from "react";
+import axios from "../../utils/axiosInstance";
+import { FaHeart, FaRegHeart, FaRegCommentDots } from "react-icons/fa";
+import "./Home.css";
 
-const Home = ({setUser}) => {
-    const navigate = useNavigate();
+const Home = () => {
+    const [posts, setPosts] = useState([]);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");   // Clear token
-        localStorage.removeItem("user");   // Clear user data
-        setUser(null);                     // Clear user state
-        console.log("User logged out");
-        alert("You have been logged out successfully!"); // Alert user
-        navigate("/login");                 // Redirect to login
-    }
+    useEffect(() => {
+        axios
+            .get("/posts/all")
+            .then((res) => setPosts(res.data))
+            .catch((err) => alert("Failed to load posts"));
+    }, []);
 
     return (
-        <div className="landing-container">
-            <h1>Welcome to Social Media App</h1>
-            <div className="landing-buttons">
-                <Link to="/login" className="landing-btn">Login</Link>
-                <Link to="/register" className="landing-btn">Register</Link>
-                <button className="landing-btn" onClick={handleLogout}>Logout</button>
+        <div className="home-wrapper">
+            <h2 className="home-title">📚 Latest Blog Posts</h2>
+            <div className="post-grid">
+                {posts.map((post) => (
+                    <div className="post-card" key={post._id}>
+                        <h3 className="post-title">{post.title}</h3>
+                        <p className="post-content">{post.content.slice(0, 150)}...</p>
+                        <div className="post-footer">
+                            <span className="author">👤 {post.author?.username || "Unknown"}</span>
+                            <div className="post-actions">
+                                <button className="icon-button">
+                                    <FaRegHeart />
+                                    <span>Like</span>
+                                </button>
+                                <button className="icon-button">
+                                    <FaRegCommentDots />
+                                    <span>Comment</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
