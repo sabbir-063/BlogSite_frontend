@@ -13,12 +13,22 @@ const Register = () => {
         email: "", 
         password: "" 
     });
+    const [profilePicFile, setProfilePicFile] = useState(null);
+    const [previewURL, setPreviewURL] = useState("");
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        setErrors({ ...errors, [e.target.name]: "" }); // Clear error on change
+        setErrors({ ...errors, [e.target.name]: "" });
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfilePicFile(file);
+            setPreviewURL(URL.createObjectURL(file));
+        }
     };
 
     const validate = () => {
@@ -27,17 +37,22 @@ const Register = () => {
         if (!form.email.trim()) temp.email = "Email is required";
         if (!form.password.trim()) temp.password = "Password is required";
         else if (form.password.length < 6) temp.password = "Password must be at least 6 characters";
-
         setErrors(temp);
         return Object.keys(temp).length === 0;
     };
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
 
+        const data = new FormData();
+        Object.keys(form).forEach((key) => data.append(key, form[key]));
+        if (profilePicFile) data.append("profilePicture", profilePicFile);
+
         try {
-            await axios.post("/auth/register", form);
+            await axios.post("/auth/register", data, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
             alert("Registered! Please login.");
             navigate("/login");
         } catch (err) {
@@ -58,7 +73,7 @@ const Register = () => {
                     onChange={handleChange}
                     required
                 />
-                <lastname
+                <input
                     name="lastname"
                     placeholder="Last Name"
                     value={form.lastname}
@@ -73,13 +88,18 @@ const Register = () => {
                     onChange={handleChange}
                     required
                 />
-                <input 
-                    name="profilePicture"
-                    type="url"
-                    placeholder="Profile Picture URL"
-                    value={form.profilePicture}
-                    onChange={handleChange}
-                />
+                <label className="file-upload-label">
+                    Profile Picture
+                    <input
+                        name="profilePicture"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
+                </label>
+                {previewURL && (
+                    <img src={previewURL} alt="Preview" className="profile-preview" />
+                )}
                 <input
                     name="username"
                     placeholder="Username"

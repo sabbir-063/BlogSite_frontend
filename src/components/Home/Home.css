@@ -15,12 +15,12 @@
   color: #333;
 }
 
-.post-grid {
+/* .post-grid {
   display: flex;
   flex-direction: column;
   gap: 25px;
   align-items: center;
-}
+} */
 
 .post-card {
   width: 100%;

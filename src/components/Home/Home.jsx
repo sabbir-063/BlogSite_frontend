@@ -1,40 +1,29 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axiosInstance";
-import { FaHeart, FaRegHeart, FaRegCommentDots } from "react-icons/fa";
 import "./Home.css";
+import PostCard from "../Post/PostCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [posts, setPosts] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         axios
             .get("/posts/all")
             .then((res) => setPosts(res.data))
-            .catch((err) => alert("Failed to load posts"));
+            .catch((err) => alert(`Failed to load posts ${err}`));
     }, []);
 
+    const handlePostClick = (postId) => {
+        navigate(`/posts/${postId}`);
+    };
+
     return (
-        <div className="home-wrapper">
-            <h2 className="home-title">📚 Latest Blog Posts</h2>
-            <div className="post-grid">
+        <div className="mx-auto px-6 py-8 max-w-max">
+            {/* <h2 className="home-title">📚 Latest Blog Posts</h2> */}
+            <div className="grid grid-cols-1 gap-4 md:grid md:grid-cols-3 lg:grid-cols-4 lg:gap-6 md:gap-4">
                 {posts.map((post) => (
-                    <div className="post-card" key={post._id}>
-                        <h3 className="post-title">{post.title}</h3>
-                        <p className="post-content">{post.content.slice(0, 150)}...</p>
-                        <div className="post-footer">
-                            <span className="author">👤 {post.author?.username || "Unknown"}</span>
-                            <div className="post-actions">
-                                <button className="icon-button">
-                                    <FaRegHeart />
-                                    <span>Like</span>
-                                </button>
-                                <button className="icon-button">
-                                    <FaRegCommentDots />
-                                    <span>Comment</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <PostCard key={post?._id} post={post} onPostClick={handlePostClick} />
                 ))}
             </div>
         </div>

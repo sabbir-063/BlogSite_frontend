@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
 import Login from "./components/Login/Login";
@@ -6,44 +6,32 @@ import Register from "./components/Register/Register";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import CreatePost from "./components/CreatePost/CreatePost";
-import { decodeToken } from './utils/decode_token'
 import ProtectedRoute from "./utils/protectedRoute";
+import Navbar2 from "./components/Navbar/Navbar2";
+import { validateUser } from "./utils/validateUser";
+import NotFound from "./components/NotFound";
+import PostDetails from "./components/Post/PostDetails";
 
 function App() {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    const decoded = decodeToken(token);
-    if (decoded) {
-      setUser(decoded);
-      // console.log("User decoded from token: ", user._id, user.username, user.email);
-    } else {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      setUser(null);
-      // console.log("Invalid token, user set to null");
-    }
-  }, []);
-
+  const [user, setUser] = useState(validateUser);
 
   return (
     <Router>
-      <Navbar user={user} setUser={setUser} />
+      {
+        user ? (
+          <Navbar2 user={user} setUser={setUser} />
+        ) :
+          (
+            <Navbar />
+          )
+      }
       <Routes>
         <Route path="/" element={<Home user={user} />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-        <Route
-          path="/create-post"
-          element={
-            <ProtectedRoute>
-              <CreatePost />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/posts/:postId" element={<PostDetails />} />
+        <Route path="/create-post" element={ <ProtectedRoute> <CreatePost /> </ProtectedRoute> } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

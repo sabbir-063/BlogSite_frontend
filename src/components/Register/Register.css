@@ -50,3 +50,19 @@
 .auth-form button:hover {
     background-color: #2980b9;
 }
+
+.profile-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px auto;
+    display: block;
+    border: 2px solid #ccc;
+}
+
+.file-upload-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
