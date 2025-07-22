@@ -21,7 +21,7 @@ export default function PostCard({ post, onPostClick }) {
                     <div className="flex items-start justify-between" >
                         <div className="space-y-2">
                             <h2 className="text-xl font-bold leading-tight text-foreground h-[70px] hover:cursor-pointer" onClick={handleTitleClick}>
-                                {post?.title.slice(0,40)}
+                                {post?.title.slice(0, 40)}
                             </h2>
                             <Badge variant="secondary" className="w-fit text-xs">
                                 {post?.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'Unknown Date'}
@@ -37,10 +37,10 @@ export default function PostCard({ post, onPostClick }) {
                             <img
                                 src={post?.imageLinks[0] || 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg'}
                                 alt="Post Images"
-                                className="w-full h-[225px]  object-cover"
+                                className="w-full h-[225px] z-10  object-cover"
                             />
                             {/* Hover overlay */}
-                            <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
+                            <div className="absolute z-0 inset-0 bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
                                 <span className="text-white opacity-0 hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black bg-opacity-50 px-3 py-1 rounded">
                                     Read More
                                 </span>

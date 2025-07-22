@@ -184,7 +184,7 @@ const PostDetails = () => {
                                     <img
                                         src={post?.imageLinks[currentImageIndex]}
                                         alt={`Post image ${currentImageIndex + 1}`}
-                                        className="w-full h-full object-fill"
+                                        className="w-full h-full object-contain"
                                     />
                                 </div>
 
@@ -232,6 +232,13 @@ const PostDetails = () => {
                         <div className="prose prose-lg max-w-none">
                             <div className="text-gray-800 leading-relaxed text-lg whitespace-pre-wrap font-medium">
                                 {post?.content?.split('\n').map((paragraph, index) => {
+                                    if (paragraph.startsWith('# ')) {
+                                        return (
+                                            <h1 key={index} className="text-3xl font-bold text-gray-900 mt-8 mb-4">
+                                                {paragraph.replace('# ', '')}
+                                            </h1>
+                                        );
+                                    }
                                     if (paragraph.startsWith('## ')) {
                                         return (
                                             <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">
