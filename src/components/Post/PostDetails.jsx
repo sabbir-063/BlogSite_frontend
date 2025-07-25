@@ -137,14 +137,14 @@ const PostDetails = () => {
                                     <div className="flex items-center space-x-3">
                                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
                                             <img
-                                                src={post?.author?.username || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'}
-                                                alt={post?.author?.username || 'Author'}
+                                                src={post?.author?.profilePicture || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'}
+                                                alt={post?.author?.profilePicture || 'Author'}
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>
                                         <div>
                                             <p className="font-semibold text-gray-900">
-                                                {post?.author?.username || 'Anonymous'}
+                                                {post?.author?.firstname + " " + post?.author?.lastname || 'Anonymous'}
                                             </p>
                                             <div className="flex items-center space-x-2 text-sm text-gray-600">
                                                 <Clock className="w-4 h-4" />
