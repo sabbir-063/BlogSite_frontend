@@ -1,12 +1,14 @@
 import React from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { TrendingUp, MessageCircle, Bookmark, Share, Heart } from 'lucide-react';
+import { Calendar, User } from 'lucide-react';
 
 export default function PostCard({ post, onPostClick }) {
     const handleImageClick = () => {
-        console.log("Image clicked for post ID:", post._id);
+        // console.log("Image clicked for post ID:", post._id);
+        // console.log(post);
         onPostClick(post._id);
     };
 
@@ -18,14 +20,19 @@ export default function PostCard({ post, onPostClick }) {
         <div className="w-full max-w-md mx-auto">
             <Card className="bg-card border-border overflow-hidden">
                 <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between" >
-                        <div className="space-y-2">
-                            <h2 className="text-xl font-bold leading-tight text-foreground h-[70px] hover:cursor-pointer" onClick={handleTitleClick}>
-                                {post?.title.slice(0, 40)}
-                            </h2>
-                            <Badge variant="secondary" className="w-fit text-xs">
-                                {post?.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'Unknown Date'}
-                            </Badge>
+                    <div className="space-y-2">
+                        <CardTitle className="text-lg font-semibold line-clamp-2 h-12 hover:cursor-pointer" onClick={handleTitleClick}>
+                            {post.title}
+                        </CardTitle>
+                        <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-1">
+                                <Calendar className="w-4 h-4" />
+                                {new Date(post.createdAt).toLocaleDateString()}
+                            </div>
+                            <div className="flex items-center gap-1">
+                                <User className="w-4 h-4" />
+                                {post.author?.firstname} {post.author?.lastname}
+                            </div>
                         </div>
                     </div>
                 </CardHeader>
@@ -39,6 +46,11 @@ export default function PostCard({ post, onPostClick }) {
                                 alt="Post Images"
                                 className="w-full h-[225px] z-10  object-cover"
                             />
+                            <div className="absolute top-2 right-2">
+                                <Badge variant="secondary" className="bg-black bg-opacity-50 text-gray-900">
+                                    {post?.imageLinks?.length || 0} images
+                                </Badge>
+                            </div>
                             {/* Hover overlay */}
                             <div className="absolute z-0 inset-0 bg-opacity-0 hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center">
                                 <span className="text-white opacity-0 hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black bg-opacity-50 px-3 py-1 rounded">
@@ -85,6 +97,7 @@ export default function PostCard({ post, onPostClick }) {
                         </div>
                     </div>
                 </CardContent>
+
             </Card>
         </div>
     );

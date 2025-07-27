@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useEffect, useRef, useState } from "react";
 
-const Navbar2 = ({user, setUser}) => {
+const Navbar2 = ({ user, setUser }) => {
     const navigate = useNavigate();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -16,15 +16,64 @@ const Navbar2 = ({user, setUser}) => {
     };
 
     const handleNavigation = (path) => {
-        if(path == '/') navigate("/");
-        else if (path == '/services') navigate("/services");
-        else if (path == '/about') navigate("/about");
-        else if (path == '/contact') navigate("/contact");
-        else if (path == '/blog') navigate("/blog");
-        else if (path == '/create-post') navigate("/create-post");
-        else if (path == '/profile') navigate("/profile");
-        else if (path == '/my-posts') navigate("/my-posts");
-        else navigate("/");
+        // For dashboard sections, trigger smooth scrolling
+        if (path === '/') {
+            // If we're already on the dashboard, just scroll to home
+            if (window.location.pathname === '/') {
+                const event = new CustomEvent('navClick', { detail: { path: '/' } });
+                window.dispatchEvent(event);
+            } else {
+                // Navigate to dashboard first, then scroll
+                navigate('/');
+                setTimeout(() => {
+                    const event = new CustomEvent('navClick', { detail: { path: '/' } });
+                    window.dispatchEvent(event);
+                }, 100);
+            }
+        } else if (path === '/services') {
+            if (window.location.pathname === '/') {
+                const event = new CustomEvent('navClick', { detail: { path: '/services' } });
+                window.dispatchEvent(event);
+            } else {
+                navigate('/');
+                setTimeout(() => {
+                    const event = new CustomEvent('navClick', { detail: { path: '/services' } });
+                    window.dispatchEvent(event);
+                }, 100);
+            }
+        } else if (path === '/about') {
+            if (window.location.pathname === '/') {
+                const event = new CustomEvent('navClick', { detail: { path: '/about' } });
+                window.dispatchEvent(event);
+            } else {
+                navigate('/');
+                setTimeout(() => {
+                    const event = new CustomEvent('navClick', { detail: { path: '/about' } });
+                    window.dispatchEvent(event);
+                }, 100);
+            }
+        } else if (path === '/contact') {
+            if (window.location.pathname === '/') {
+                const event = new CustomEvent('navClick', { detail: { path: '/contact' } });
+                window.dispatchEvent(event);
+            } else {
+                navigate('/');
+                setTimeout(() => {
+                    const event = new CustomEvent('navClick', { detail: { path: '/contact' } });
+                    window.dispatchEvent(event);
+                }, 100);
+            }
+        } else if (path === '/blogs') {
+            navigate("/blogs");
+        } else if (path === '/create-post') {
+            navigate("/create-post");
+        } else if (path === '/profile') {
+            navigate("/profile");
+        } else if (path === '/my-posts') {
+            navigate("/my-posts");
+        } else {
+            navigate("/");
+        }
         setIsDropdownOpen(false);
     };
 
@@ -48,7 +97,7 @@ const Navbar2 = ({user, setUser}) => {
                     <div className="flex-shrink-0">
                         <button
                             onClick={() => handleNavigation('/')}
-                            className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors duration-200"
+                            className="text-2xl font-bold text-blue-600 hover:text-blue-700 cursor-pointer transition-colors duration-200"
                         >
                             NextBlog
                         </button>
@@ -58,33 +107,36 @@ const Navbar2 = ({user, setUser}) => {
                     <div className="hidden md:flex space-x-8">
                         <button
                             onClick={() => handleNavigation('/')}
-                            className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            className="text-gray-700 hover:text-blue-600 cursor-pointer px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
                             Home
                         </button>
-                        <button
-                            onClick={() => handleNavigation('/services')}
-                            className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                        >
-                            Services
-                        </button>
+
                         <button
                             onClick={() => handleNavigation('/about')}
-                            className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            className="text-gray-700 hover:text-blue-600 cursor-pointer px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
                             About Us
                         </button>
+
                         <button
-                            onClick={() => handleNavigation('/contact')}
-                            className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            onClick={() => handleNavigation('/services')}
+                            className="text-gray-700 hover:text-blue-600 cursor-pointer px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
-                            Contact
+                            Services
+                        </button>
+                        
+                        <button
+                            onClick={() => handleNavigation('/blogs')}
+                            className="text-gray-700 hover:text-blue-600 cursor-pointer px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                        >
+                            Blogs
                         </button>
                         <button
-                            onClick={() => handleNavigation('/blog')}
-                            className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            onClick={() => handleNavigation('/contact')}
+                            className="text-gray-700 hover:text-blue-600 cursor-pointer px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
-                            Blog
+                            Contact
                         </button>
                     </div>
 
@@ -93,7 +145,7 @@ const Navbar2 = ({user, setUser}) => {
                         {/* Create Post Button */}
                         <button
                             onClick={() => handleNavigation('/create-post')}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center space-x-2"
+                            className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center space-x-2"
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />

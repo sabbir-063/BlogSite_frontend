@@ -81,7 +81,7 @@ const PostDetails = () => {
     };
 
     const handleBack = () => {
-        navigate("/");
+        navigate("/blogs");
     }
 
     if (loading) {
