@@ -44,7 +44,6 @@ frontend/
 - Rich text editing
 - Toast notifications
 - Protected routes
-- Material UI icons integration
 
 ## Tech Stack
 
@@ -53,9 +52,7 @@ frontend/
 - Tailwind CSS
 - React Router DOM
 - Axios for API calls
-- Material UI Icons
 - React Toastify
-- Styled Components
 - JWT handling
 
 ## Installation
@@ -78,29 +75,7 @@ npm start
 
 The application will be available at `http://localhost:5173`
 
-## Available Scripts
 
-- `npm start` - Start development server
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run lint` - Run ESLint
-- `npm run preview` - Preview production build
-
-## Development
-
-To start the development server with hot-reload:
-```bash
-npm run dev
-```
-
-## Building for Production
-
-To create a production build:
-```bash
-npm run build
-```
-
-The build artifacts will be stored in the `dist/` directory.
 
 ## Components
 
@@ -112,19 +87,6 @@ The application includes several reusable components:
 - User profile components
 - Protected route wrapper
 
-## Styling
-
-- Tailwind CSS for utility-first styling
-- CSS modules for component-specific styles
-- Material UI icons for consistent iconography
-- Responsive design breakpoints
-
-## State Management
-
-- React Context for global state
-- Local state with useState
-- JWT storage in localStorage
-- Axios interceptors for API calls
 
 ## Routing
 
@@ -144,27 +106,3 @@ React Router v7 is used for routing with the following main routes:
 - API error handling
 - Toast notifications for user feedback
 - Protected route redirects
-
-## Browser Support
-
-The application is tested and supports all modern browsers:
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## Performance Optimization
-
-- Code splitting with React.lazy
-- Image optimization
-- Cached API responses
-- Minimized bundle size
-- Optimized dependencies
