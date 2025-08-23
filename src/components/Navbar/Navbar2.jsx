@@ -1,16 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { useEffect, useRef, useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
-const Navbar2 = ({ user, setUser }) => {
+const Navbar2 = ({ user }) => {
     const navigate = useNavigate();
+    const { logout } = useAuth();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
 
     const handleLogout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        setUser(null);
+        logout();
         setIsDropdownOpen(false);
         navigate("/login");
     };

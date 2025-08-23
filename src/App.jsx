@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,6 @@ import Navbar from "./components/Navbar/Navbar";
 import CreatePost from "./components/CreatePost/CreatePost";
 import ProtectedRoute from "./utils/protectedRoute";
 import Navbar2 from "./components/Navbar/Navbar2";
-import { validateUser } from "./utils/validateUser";
 import NotFound from "./components/NotFound";
 import PostDetails from "./components/Post/PostDetails";
 import UserProfile from "./components/Profile/UserProfile";
@@ -18,15 +17,16 @@ import MyPosts from "./components/MyPosts/MyPosts";
 import EditPost from "./components/Post/EditPost";
 import DashBoard from "./components/DashBoard/DashBoard";
 import Footer from "./components/DashBoard/Footer";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
-function App() {
-  const [user, setUser] = useState(validateUser);
+function AppContent() {
+  const { user } = useAuth();
 
   return (
     <Router>
       {
         user ? (
-          <Navbar2 user={user} setUser={setUser} />
+          <Navbar2 user={user} />
         ) :
           (
             <Navbar />
@@ -35,7 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<DashBoard />} />
         <Route path="/blogs" element={<Home user={user} />} />
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
         <Route path="/create-post" element={<ProtectedRoute> <CreatePost /> </ProtectedRoute>} />
@@ -58,6 +58,14 @@ function App() {
         theme="light"
       />
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

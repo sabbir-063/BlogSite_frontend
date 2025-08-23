@@ -6,13 +6,15 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import { useAuth } from "../../contexts/AuthContext";
 
-const Login = ({ setUser }) => {
+const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,7 +37,7 @@ const Login = ({ setUser }) => {
             const res = await axios.post("/auth/login", form);
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
-            setUser(res.data.user);
+            login(res.data.user);
             toast.success("Login successful!");
             navigate("/blogs");
         } catch (err) {

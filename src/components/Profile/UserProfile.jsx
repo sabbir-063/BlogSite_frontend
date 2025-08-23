@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import OptimizedImage from '../ui/optimized-image';
 import {
     User,
     Mail,
@@ -19,8 +20,10 @@ import {
     Camera,
     Upload
 } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 const UserProfile = () => {
+    const { user: authUser, login } = useAuth();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -90,7 +93,12 @@ const UserProfile = () => {
     const handleProfileUpdate = async () => {
         try {
             const response = await axiosInstance.put('/user/profile', formData);
-            setUser(response.data.user);
+            const updatedUser = response.data.user;
+            setUser(updatedUser);
+
+            // Update the AuthContext so navbar reflects the changes
+            login(updatedUser);
+
             setIsEditing(false);
             toast.success('Profile updated successfully!');
         } catch (error) {
@@ -104,7 +112,7 @@ const UserProfile = () => {
             await axiosInstance.put('/user/password', passwordData);
             setIsChangingPassword(false);
             setPasswordData({
-                currentPassword: '',    
+                currentPassword: '',
                 newPassword: '',
                 confirmPassword: ''
             });
@@ -125,14 +133,33 @@ const UserProfile = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setFormData(prev => ({
-                    ...prev,
-                    profilePicture: e.target.result
-                }));
-            };
-            reader.readAsDataURL(file);
+            // Create FormData for file upload
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+
+            // Update profile with new image
+            axiosInstance.put('/user/profile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(response => {
+                    const updatedUser = response.data.user;
+                    setUser(updatedUser);
+                    setFormData(prev => ({
+                        ...prev,
+                        profilePicture: updatedUser.profilePicture
+                    }));
+
+                    // Update the AuthContext so navbar reflects the changes
+                    login(updatedUser);
+
+                    toast.success('Profile picture updated successfully!');
+                })
+                .catch(error => {
+                    console.error('Error uploading profile picture:', error);
+                    toast.error(error.response?.data?.error || 'Failed to upload profile picture');
+                });
         }
     };
 
@@ -180,10 +207,12 @@ const UserProfile = () => {
                                     <div className="relative">
                                         <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
                                             {formData.profilePicture ? (
-                                                <img
+                                                <OptimizedImage
                                                     src={formData.profilePicture}
                                                     alt="Profile"
                                                     className="w-full h-full object-cover"
+                                                    size="thumbnail"
+                                                    fallback="/Profile_avatar_placeholder_large.png"
                                                 />
                                             ) : (
                                                 <User className="w-16 h-16 text-white" />

@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import OptimizedImage from "../ui/optimized-image";
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -151,7 +152,13 @@ const Register = () => {
                                     disabled={loading}
                                 />
                                 {previewURL && (
-                                    <img src={previewURL} alt="Preview" className="w-20 h-20 rounded-full object-cover mt-2 border" />
+                                    <OptimizedImage
+                                        src={previewURL}
+                                        alt="Preview"
+                                        className="w-20 h-20 rounded-full object-cover mt-2 border"
+                                        size="thumbnail"
+                                        lazy={false}
+                                    />
                                 )}
                             </div>
                             <div className="space-y-2">

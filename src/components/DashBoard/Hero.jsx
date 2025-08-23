@@ -9,7 +9,7 @@ const Hero = ({ scrollToSection }) => {
             <div className="max-w-7xl mx-auto">
                 <div className="text-center">
                     <div className="mb-8">
-                        <span className="inline-block animate-bounce text-4xl mb-4">🚀</span>
+                        {/* <span className="inline-block animate-bounce text-4xl mb-4">🚀</span> */}
                         <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6">
                             Welcome to NextBlog
                         </h1>
