@@ -66,7 +66,7 @@ export default function PostCard({ post, onPostClick }) {
                     {/* Engagement metrics */}
                     <div className="px-4 pb-4">
                         <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-1">
+                            <div className="flex items-center justify-evenly w-full">
                                 {/* Views */}
                                 <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-foreground">
                                     <Eye className="w-4 h-4 mr-1" />
@@ -83,14 +83,6 @@ export default function PostCard({ post, onPostClick }) {
                                 <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-blue-500">
                                     <MessageCircle className="w-4 h-4 mr-1" />
                                     <span className="text-sm font-medium">{post?.comments?.length || 0}</span>
-                                </Button>
-                            </div>
-
-                            <div className="flex items-center space-x-1">
-
-                                {/* Share */}
-                                <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-muted-foreground hover:text-green-500">
-                                    <Share className="w-4 h-4" />
                                 </Button>
                             </div>
                         </div>

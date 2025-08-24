@@ -51,7 +51,7 @@ const Services = () => {
                         Everything you need to create, share, and discover amazing content
                     </p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {services.map((service, index) => (
                         <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
@@ -61,9 +61,12 @@ const Services = () => {
                             </CardHeader>
                             <CardContent className="text-center">
                                 <p className="text-gray-600 mb-4">{service.description}</p>
-                                <Badge variant="outline" className={`border-${service.color}-200 text-${service.color}-700`}>
+                                <button
+                                    className="w-full py-2 px-4 rounded-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    type="button"
+                                >
                                     Learn More
-                                </Badge>
+                                </button>
                             </CardContent>
                         </Card>
                     ))}
