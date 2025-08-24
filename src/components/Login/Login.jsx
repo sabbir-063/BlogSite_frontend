@@ -21,6 +21,10 @@ const Login = () => {
         setErrors({ ...errors, [e.target.name]: undefined });
     };
 
+    const handleForgotPassword = () => {
+        navigate("/forgot-password");
+    };
+
     const validate = () => {
         const temp = {};
         if (!form.email) temp.email = "Email is required";
@@ -116,6 +120,7 @@ const Login = () => {
                                         type="button"
                                         className="text-xs underline focus:outline-none text-blue-500"
                                         tabIndex={0}
+                                        onClick={handleForgotPassword}
                                     >
                                         Forgot password?
                                     </button>

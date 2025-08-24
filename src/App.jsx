@@ -17,6 +17,8 @@ import MyPosts from "./components/MyPosts/MyPosts";
 import EditPost from "./components/Post/EditPost";
 import DashBoard from "./components/DashBoard/DashBoard";
 import Footer from "./components/DashBoard/Footer";
+import ForgotPassword from './components/Auth/ForgotPassword';
+import ResetPassword from './components/Auth/ResetPassword';
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 function AppContent() {
@@ -38,6 +40,8 @@ function AppContent() {
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/posts/:postId" element={<PostDetails />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/create-post" element={<ProtectedRoute> <CreatePost /> </ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
         <Route path="/my-posts" element={<ProtectedRoute> <MyPosts /> </ProtectedRoute>} />
