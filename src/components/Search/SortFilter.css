@@ -1,0 +1,177 @@
+.sort-filter-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.sort-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sort-dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.sort-dropdown label {
+    margin-right: 12px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.sort-select {
+    appearance: none;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 32px 8px 12px;
+    font-size: 14px;
+    color: #1e293b;
+    cursor: pointer;
+    min-width: 160px;
+}
+
+.select-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #64748b;
+}
+
+.filter-toggle-btn {
+    display: flex;
+    align-items: center;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #1e293b;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.filter-toggle-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.filter-toggle-btn svg {
+    margin-right: 6px;
+}
+
+.toggle-icon {
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.filters-panel {
+    padding: 16px;
+    background-color: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.filter-group {
+    margin-bottom: 16px;
+}
+
+.filter-group h4 {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-options button {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-options button:hover {
+    background-color: #f1f5f9;
+}
+
+.filter-options button.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.clear-filters {
+    background-color: transparent;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-filters:hover {
+    background-color: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+    .sort-filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .sort-dropdown {
+        margin-bottom: 12px;
+        width: 100%;
+    }
+    
+    .sort-select {
+        width: 100%;
+    }
+    
+    .filter-toggle-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .filter-options {
+        flex-direction: column;
+    }
+    
+    .filter-options button {
+        width: 100%;
+        text-align: left;
+    }
+}

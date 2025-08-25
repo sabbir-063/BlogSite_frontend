@@ -1,0 +1,138 @@
+.search-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.search-form.focused {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+    background: white;
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.search-icon {
+    color: #64748b;
+    margin-left: 12px;
+    margin-right: 8px;
+}
+
+.search-input {
+    width: 100%;
+    border: none;
+    padding: 10px 0;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+}
+
+.clear-button {
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #2563eb;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 4px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f5f9;
+}
+
+.suggestion-icon {
+    color: #64748b;
+    margin-right: 12px;
+}
+
+.suggestion-loading {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    margin-right: 12px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 640px) {
+    .search-form {
+        flex-direction: column;
+        padding: 8px;
+    }
+    
+    .search-input-container {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .search-button {
+        width: 100%;
+    }
+}
