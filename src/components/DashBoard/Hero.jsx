@@ -2,8 +2,10 @@ import React from 'react';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { ArrowRight, Users, BookOpen, Heart, Award } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Hero = ({ scrollToSection }) => {
+    const navigate = useNavigate();
     return (
         <section id="home" className="pt-8 pb-16 px-4">
             <div className="max-w-7xl mx-auto">
@@ -21,9 +23,9 @@ const Hero = ({ scrollToSection }) => {
                             <Button 
                                 size="lg" 
                                 className="text-lg px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                                onClick={() => scrollToSection('about')}
+                                onClick={() => navigate('/blogs')}
                             >
-                                Learn More
+                                See Blogs
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                             <Button 
