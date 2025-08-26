@@ -1,0 +1,79 @@
+.markdown-editor-container {
+  width: 100%;
+}
+
+.markdown-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px 6px 0 0;
+  border-bottom: none;
+}
+
+.toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 8px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toolbar-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.toolbar-button:focus {
+  outline: 2px solid #e5e7eb;
+  outline-offset: 1px;
+}
+
+.markdown-tabs {
+  width: 100%;
+}
+
+.markdown-textarea {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  min-height: 200px;
+  line-height: 1.6;
+}
+
+.markdown-preview-container {
+  border: 1px solid #e5e7eb;
+  border-radius: 0 0 6px 6px;
+  background-color: #fcfcfc;
+}
+
+/* Override styles when in preview mode */
+[data-state="active"][data-value="preview"] {
+  padding: 0;
+}
+
+/* Responsiveness */
+@media (max-width: 640px) {
+  .markdown-toolbar {
+    gap: 2px;
+    padding: 4px;
+  }
+  
+  .toolbar-button {
+    height: 28px;
+    min-width: 28px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+}

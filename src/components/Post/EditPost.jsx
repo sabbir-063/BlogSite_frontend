@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
+import MarkdownEditor from '../ui/markdown-editor';
 import { Image as ImageIcon, Save, X, Upload } from 'lucide-react';
 
 const MAX_IMAGE_SIZE_MB = 5;
@@ -125,16 +125,15 @@ const EditPost = () => {
                                 {errors.title && <div className="text-red-500 text-xs mt-1">{errors.title}</div>}
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="content">Content</Label>
-                                <Textarea
+                                <Label htmlFor="content">Content (Supports Markdown)</Label>
+                                <MarkdownEditor
                                     id="content"
                                     value={content}
-                                    onChange={e => setContent(e.target.value)}
-                                    placeholder="Write your post content here..."
-                                    rows={6}
-                                    required
+                                    onChange={(value) => setContent(value)}
+                                    placeholder="Write your post content here... Supports Markdown formatting!"
+                                    error={errors.content}
+                                    rows={10}
                                 />
-                                {errors.content && <div className="text-red-500 text-xs mt-1">{errors.content}</div>}
                             </div>
                             <div className="space-y-2">
                                 <Label>Current Images</Label>

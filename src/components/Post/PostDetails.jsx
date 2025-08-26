@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import { Button } from '../../components/ui/button';
+import { Badge } from '../../components/ui/badge';
 import axios from '../../utils/axiosInstance';
 import { toast } from 'react-toastify';
+import MarkdownPreview from '../ui/markdown-preview';
 import {
     Heart,
     MessageCircle,
@@ -17,7 +18,7 @@ import {
     Eye
 } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
-import OptimizedImage from '@/components/ui/optimized-image';
+import OptimizedImage from '../../components/ui/optimized-image';
 import CommentSection from './CommentSection';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -240,49 +241,8 @@ const PostDetails = () => {
                             <h1 className="text-4xl font-bold text-gray-900 leading-tight">
                                 {post?.title}
                             </h1>
-                            <div className="text-gray-800 leading-relaxed text-lg whitespace-pre-wrap font-medium">
-                                {post?.content?.split('\n').map((paragraph, index) => {
-                                    if (paragraph.startsWith('# ')) {
-                                        return (
-                                            <h1 key={index} className="text-3xl font-bold text-gray-900 mt-8 mb-4">
-                                                {paragraph.replace('# ', '')}
-                                            </h1>
-                                        );
-                                    }
-                                    if (paragraph.startsWith('## ')) {
-                                        return (
-                                            <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4">
-                                                {paragraph.replace('## ', '')}
-                                            </h2>
-                                        );
-                                    }
-                                    if (paragraph.startsWith('### ')) {
-                                        return (
-                                            <h3 key={index} className="text-xl font-semibold text-gray-900 mt-6 mb-3">
-                                                {paragraph.replace('### ', '')}
-                                            </h3>
-                                        );
-                                    }
-                                    if (paragraph.trim().match(/^\d+\./)) {
-                                        return (
-                                            <p key={index} className="mb-2 pl-4">
-                                                <span className="font-semibold">{paragraph}</span>
-                                            </p>
-                                        );
-                                    }
-                                    if (paragraph.startsWith('- ')) {
-                                        return (
-                                            <p key={index} className="mb-2 pl-4">
-                                                • {paragraph.replace('- ', '')}
-                                            </p>
-                                        );
-                                    }
-                                    return paragraph.trim() ? (
-                                        <p key={index} className="mb-4">
-                                            {paragraph}
-                                        </p>
-                                    ) : null;
-                                })}
+                            <div className="text-gray-800 leading-relaxed">
+                                <MarkdownPreview content={post?.content || ''} />
                             </div>
                         </div>
 

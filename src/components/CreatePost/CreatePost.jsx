@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
+import MarkdownEditor from "../ui/markdown-editor";
 
 const MAX_IMAGE_SIZE_MB = 5;
 
@@ -104,23 +104,15 @@ const CreatePost = () => {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="content">Content</Label>
-                <Textarea
+                <Label htmlFor="content">Content (Supports Markdown)</Label>
+                <MarkdownEditor
                   id="content"
-                  name="content"
-                  placeholder="Content"
-                  rows={5}
                   value={post.content}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.content}
-                  aria-describedby={errors.content ? "content-error" : undefined}
-                  disabled={loading}
+                  onChange={(value) => setPost({ ...post, content: value })}
+                  placeholder="Write your post content here... Supports Markdown formatting!"
+                  error={errors.content}
+                  rows={10}
                 />
-                {errors.content && (
-                  <div id="content-error" className="text-destructive text-xs mt-1">
-                    {errors.content}
-                  </div>
-                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="imageLinks">Images</Label>
